@@ -3,23 +3,39 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <title>Twiddler</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
   </head>
   <body>
+    <header>
+        <h1>Twiddler</h1>
+    </header>
+
+
     <script>
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+    $(document).ready(function(){
+      var $body = $('body');
+      $body.html('<h1> Twiddler <h1><hr>');
 
+      var tweetDeck = function() {
         var index = streams.home.length - 1;
         while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          var tweet = streams.home.pop();
+          var $user = $('<div class = \'user\'></div>')
+          $user.text('@' + tweet.user);
+          $user.appendTo($body);
+          var $tweet = $('<div class = \'tweet\'></div>');
+          $tweet.text(tweet.message + '');
           $tweet.appendTo($body);
+          var $date = $('<div class = \'date-time\'></div>')
+          $date.text('Tweeted on ' + tweet.created_at);
+          $date.appendTo($body);
           index -= 1;
+          }
         }
 
+        tweetDeck();
       });
 
     </script>

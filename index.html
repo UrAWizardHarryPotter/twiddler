@@ -19,7 +19,7 @@
       $body.html('<h1> Twiddler <h1><hr>');
 
       var tweetDeck = function() {
-        var index = streams.home.length - 1;
+        var index = streams.home.length - 2;
         while(index >= 0){
           var tweet = streams.home.pop();
           var $user = $('<div class = \'user\'></div>')
@@ -46,7 +46,7 @@
           var current = $(this).text().slice(1);
           $('div').empty();
 
-          var index = streams.users[current].length - 1;
+          var index = streams.users[current].length - 2;
           while (index >= 0) {
             var tweet = streams.users[current][index];
             var $user = $('<div class = \'user\'></div>')

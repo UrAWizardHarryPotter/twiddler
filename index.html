@@ -36,6 +36,31 @@
         }
 
         tweetDeck();
+
+
+        // Set to update on short interval
+        var x = setInterval(tweetDeck, 1500);
+
+        $('.user').click(function() {
+          clearInterval(x);
+          var current = $(this).text().slice(1);
+          $('div').empty();
+
+          var index = streams.users[current].length - 1;
+          while (index >= 0) {
+            var tweet = streams.users[current][index];
+            var $user = $('<div class = \'user\'></div>')
+            $user.text('@' + tweet.user);
+            $user.appendTo($body);
+            var $tweet = $('<div class = \'tweet\'></div>');
+            $tweet.text(tweet.message + '');
+            $tweet.appendTo($body);
+            var $date = $('<div class = \'date-time\'></div>')
+            $date.text('Tweeted on ' + tweet.created_at);
+            $date.appendTo($body);
+            index -= 1;
+          }
+        });
       });
 
     </script>

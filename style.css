@@ -11,31 +11,47 @@ header {
 body {
   background-color: rgb(45, 103, 205);
 }
+
 div {
-  margin: 0px;
-  max-width: 500px;
+  text-align: left;
+  font-family: 'Times New Roman';
+  color: black;
+  font-size: 20px;
+  line-height: 100%;
+  margin-right: 0px;
 }
+
+.tweetText{
+  text-align: left;
+  font-family: 'Arial';
+  color: black;
+  font-size: 16px;
+  line-height: 100%;
+  margin-right: 0px;
+}
+
+.userName{
+  text-align: left;
+  font-family: 'Arial Black';
+  color: white;
+  font-size: 20px;
+  line-height: 100%;
+  margin-right: 0px;
+}
+
+.date{
+  text-align: left;
+  font-family: 'Arial';
+  font-style: italic;
+  color: gray;
+  font-size: 16px;
+  line-height: 100%;
+  margin-right: 0px;
+}
+
 h1 {
   text-align: left;
   font-family: 'Arial', 'Times New Roman' sans-serif;
   color: white;
   font-size: 40px;
-}
-.user {
-  text-align: left;
-  font: arial;
-  color: black;
-  font-size: 20px;
-}
-.tweet {
-  text-align: left;
-  font: arial;
-  color: white;
-  font-size: 16px;
-}
-.date-time {
-  text-align: left;
-  font: arial;
-  color: gray;
-  font-style: italic;
 }

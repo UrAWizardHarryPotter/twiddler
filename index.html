@@ -11,58 +11,86 @@
         <h1>Twiddler</h1>
     </header>
 
+    <div>
+      <button id='button-click'>
+        <a id='refresh-btn-text'>More Tweets</a>
+      </button>
+    </div>
+    <div id="stream">
+       <div class="tweet-stream"></div>
+     </div>
+
 
     <script>
 
     $(document).ready(function(){
-      var $body = $('body');
-      $body.html('<h1> Twiddler <h1><hr>');
+      let $body = $('body');
+      $body.html();
+  
+      // Loop through current array of tweets
+      for (var i = 0; i < streams.home.length; i++) {
+        // Assign streams.home[i] to var aTweet
+        var aTweet = streams.home[i]
+        // Add new aTweet
+        var $aTweet = $('<ul class=aTweet></ul>');
+        // Make userNamelist item
+        var $userName = $('<li class=userName></li>');
+        // Make tweetText list item
+        var $tweetText = $('<li class=tweetText></li>');
+        // Make date list item
+        var $date = $('<li class=date></li>');
+        // Add userNameto aTweet
+        $userName.attr('userTimeline', aTweet.user).text(`@${aTweet.user}:`).appendTo($aTweet);
+        // Add tweetText to aTweet
+        $tweetText.text(`${aTweet.message}`).appendTo($aTweet);
+        // Add date to aTweet
+        $date.text(`${new Date().toLocaleString()}`).appendTo($aTweet);
+        // Add the tweet to the top of the tweet-stream       
+        $aTweet.appendTo('.tweet-stream')
+      }
 
-      var tweetDeck = function() {
-        var index = streams.home.length - 2;
-        while(index >= 0){
-          var tweet = streams.home.pop();
-          var $user = $('<div class = \'user\'></div>')
-          $user.text('@' + tweet.user);
-          $user.appendTo($body);
-          var $tweet = $('<div class = \'tweet\'></div>');
-          $tweet.text(tweet.message + '');
-          $tweet.appendTo($body);
-          var $date = $('<div class = \'date-time\'></div>')
-          $date.text('Tweeted on ' + tweet.created_at);
-          $date.appendTo($body);
-          index -= 1;
-          }
-        }
+      // Add Buttton to refresh tweet-stream
+      // Make a click event.
+      $('#button-click').on('click', function() {
+        // Assign 10 to index variable
+        var index = 10;
+        // Iterate through while loop
+        while (index > 0) {
+          // generateRandomTweet fucntion adds a new tweet to streams.home array
+          generateRandomTweet();
+          // Assign the new tweet to aTweet
+          var aTweet = streams.home.pop();
+          // Make aTweet an unordered list item
+          var $aTweet = $('<ul class=aTweet></ul>');
+          // Make userName a list item
+          var $userName = $('<li class=userName></li>');
+          // Make tweetText a list item
+          var $tweetText = $('<li class=tweetText></li>');
+          // Make date a list item
+          var $date = $('<li class=date></li>');
+          // Add userName to userTimeline
+          $userName.attr('userTimeline', aTweet.user).text(`@${aTweet.user}:`).appendTo($aTweet);
+          // append tweetText aTweet
+          $tweetText.text(`${aTweet.message}`).appendTo($aTweet);
+          // append date to aTweet
+          $date.text(`${new Date().toLocaleString()}`).appendTo($aTweet);
+          // Add aTweet to the tweet-stream
+          $aTweet.appendTo('.tweet-stream')
+          // Decrement i for while loop
+           index--;
+        }
+      });
 
-        tweetDeck();
-
-
-        // Set to update on short interval
-        var x = setInterval(tweetDeck, 1500);
-
-        $('.user').click(function() {
-          clearInterval(x);
-          var current = $(this).text().slice(1);
-          $('div').empty();
-
-          var index = streams.users[current].length - 2;
-          while (index >= 0) {
-            var tweet = streams.users[current][index];
-            var $user = $('<div class = \'user\'></div>')
-            $user.text('@' + tweet.user);
-            $user.appendTo($body);
-            var $tweet = $('<div class = \'tweet\'></div>');
-            $tweet.text(tweet.message + '');
-            $tweet.appendTo($body);
-            var $date = $('<div class = \'date-time\'></div>')
-            $date.text('Tweeted on ' + tweet.created_at);
-            $date.appendTo($body);
-            index -= 1;
-          }
-        });
-      });
-
+        // Click on userName and show their tweet-stream
+        $('#stream').on('click', function(event) {
+          // Store userTimeline tweets on userName
+          var userName = $(event.target).attr('userTimeline');
+          // Hide other tweets (NOT userName)
+          $(`ul:not(:contains(${userName}))`).hide();
+          // Show userName tweet-stream only
+          $(`ul:contains(${userName})`).show('.userName');
+        });
+    });
     </script>
   </body>
 </html>
